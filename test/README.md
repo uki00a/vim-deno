@@ -7,5 +7,6 @@
 ## How to run tests
 
 ```shell
+$ cd path/to/vim-deno
 $ THEMIS_VIM=nvim themis
 ```
