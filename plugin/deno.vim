@@ -61,13 +61,13 @@ endfunction
 
 function! s:is_test_file(path) abort
   let l:basename = fnamemodify(a:path, ":t")
-  return l:basename =~ "_test.ts$" ||
+  return l:basename =~# "_test.ts$" ||
     \ l:basename == "test.ts" ||
-    \ l:basename =~ "_test.tsx$" ||
+    \ l:basename =~# "_test.tsx$" ||
     \ l:basename == "test.tsx" ||
-    \ l:basename =~ "_test.js$" ||
+    \ l:basename =~# "_test.js$" ||
     \ l:basename == "test.js" ||
-    \ l:basename =~ "_test.jsx$" ||
+    \ l:basename =~# "_test.jsx$" ||
     \ l:basename == "test.jsx"
 endfunction
 
