@@ -17,16 +17,8 @@ function! s:DenoTest() abort
     \ : s:build_test_filename(l:file)
   let l:flags = "-A" " TODO add support for passing flags
   let l:cmd = printf("%s test %s %s", s:deno_executable, l:flags, l:target_file)
-  let l:job_opts = {
-    \   "on_exit": function("s:OnExit"),
-    \   "cwd": fnamemodify(l:target_file, ":h")
-    \ }
-  let l:buf = s:open_buffer("__vim_deno_test__")
-  call termopen(l:cmd, l:job_opts) " TODO add support for the Vim
-endfunction
-
-function! s:OnExit(job_id, code, event) abort
-  " TODO implement this!
+  call s:open_new_buffer("__vim_deno_test__")
+  call s:run_in_term(l:cmd)
 endfunction
 
 function! s:DenoFmt() abort
@@ -38,7 +30,14 @@ function! s:DenoFmt() abort
   call setline(1, split(l:output, "\n"))
 endfunction
 
-function! s:open_buffer(buffer_name) abort
+function! s:DenoDoc() abort
+  let l:file = fnamemodify(expand("%"), ":p")
+  let l:cmd = printf("%s doc %s", s:deno_executable, l:file)
+  call s:open_new_buffer("__vim_deno_doc__")
+  call s:run_in_term(l:cmd)
+endfunction
+
+function! s:open_new_buffer(buffer_name) abort
   let l:buf = bufnr(a:buffer_name, 1)
   let l:win = bufwinnr(l:buf)
   if l:win > -1
@@ -47,6 +46,17 @@ function! s:open_buffer(buffer_name) abort
     silent! execute "split #" . l:buf
   endif
   return l:buf
+endfunction
+
+function! s:run_in_term(cmd) abort
+  let l:job_opts = {
+    \   "on_exit": function("s:OnExit"),
+    \ }
+  call termopen(a:cmd, l:job_opts) " TODO add support for the Vim
+endfunction
+
+function! s:OnExit(job_id, code, event) abort
+  " TODO implement this!
 endfunction
 
 function! s:is_test_file(path) abort
@@ -68,10 +78,11 @@ function! s:build_test_filename(path) abort
   return filereadable(l:test_filename) ? l:test_filename : a:path
 endfunction
 
-" TODO DenoDoc, DenoLint, etc.
+" TODO DenoLint
 command! DenoFmt call s:DenoFmt()
 " TODO Add support for passing flags
 command! DenoTest call s:DenoTest()
+command! DenoDoc call s:DenoDoc()
 
 let &cpo = s:cpo_save
 unlet s:cpo_save
