@@ -21,7 +21,7 @@ function! s:DenoTest() abort
     \   "on_exit": function("s:OnExit"),
     \   "cwd": fnamemodify(l:target_file, ":h")
     \ }
-  echomsg l:cmd
+  let l:buf = s:open_buffer("__vim_deno_test__")
   call termopen(l:cmd, l:job_opts) " TODO add support for the Vim
 endfunction
 
@@ -36,6 +36,17 @@ function! s:DenoFmt() abort
   " Cleanup the current buffer
   :%delete
   call setline(1, split(l:output, "\n"))
+endfunction
+
+function! s:open_buffer(buffer_name) abort
+  let l:buf = bufnr(a:buffer_name, 1)
+  let l:win = bufwinnr(l:buf)
+  if l:win > -1
+    execute l:win . "wincmd w"
+  else
+    silent! execute "split #" . l:buf
+  endif
+  return l:buf
 endfunction
 
 function! s:is_test_file(path) abort
