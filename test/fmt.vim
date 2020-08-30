@@ -2,7 +2,7 @@ let s:suite = themis#suite("deno fmt")
 let s:assert = themis#helper("assert")
 
 function! s:suite.after_each() abort
-  bw!
+  :%bwipeout!
 endfunction
 
 function! s:suite.DenoFmt() abort
