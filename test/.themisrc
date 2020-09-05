@@ -1,0 +1,4 @@
+function! OpenTestdataFile(file) abort
+  let l:path = "test/testdata/" . a:file
+  execute "edit" l:path
+endfunction

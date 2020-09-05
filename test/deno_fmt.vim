@@ -5,9 +5,8 @@ function! s:suite.after_each() abort
   :%bwipeout!
 endfunction
 
-function! s:suite.DenoFmt() abort
-  " FIXME
-  edit test/testdata/fmt.ts
+function! s:suite.command() abort
+  call OpenTestdataFile("fmt.ts")
   let l:previous_contents = join(getline(1, "$"), "\n")
   DenoFmt
   let l:current_contents = trim(join(getline(1, "$"), "\n"))

@@ -17,7 +17,7 @@ function! s:DenoTest() abort
     \ : s:build_test_filename(l:file)
   let l:flags = "-A" " TODO add support for passing flags
   let l:cmd = printf("%s test %s %s", s:deno_executable, l:flags, l:target_file)
-  call s:open_new_buffer("__vim_deno_test__")
+  call s:open_new_buffer("test")
   call s:run_in_term(l:cmd)
 endfunction
 
@@ -33,12 +33,13 @@ endfunction
 function! s:DenoDoc() abort
   let l:file = fnamemodify(expand("%"), ":p")
   let l:cmd = printf("%s doc %s", s:deno_executable, l:file)
-  call s:open_new_buffer("__vim_deno_doc__")
+  call s:open_new_buffer("doc")
   call s:run_in_term(l:cmd)
 endfunction
 
 function! s:open_new_buffer(buffer_name) abort
-  let l:buf = bufnr(a:buffer_name, 1)
+  let l:buffer_name = join(["vim-deno", a:buffer_name], "/")
+  let l:buf = bufnr(l:buffer_name, 1)
   let l:win = bufwinnr(l:buf)
   if l:win > -1
     execute l:win . "wincmd w"
