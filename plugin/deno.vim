@@ -12,13 +12,13 @@ let s:deno_executable = get(g:, "deno_executable", "deno")
 
 function! s:DenoTest() abort
   let l:file = fnamemodify(expand("%"), ":p")
-  let l:target_file = s:is_test_file(l:file)
+  let l:target_file = deno#utils#is_test_file(l:file)
     \ ? l:file
-    \ : s:build_test_filename(l:file)
+    \ : deno#utils#build_test_filename(l:file)
   let l:flags = "-A" " TODO add support for passing flags
   let l:cmd = printf("%s test %s %s", s:deno_executable, l:flags, l:target_file)
-  call s:open_new_buffer("test")
-  call s:run_in_term(l:cmd)
+  call deno#utils#open_new_buffer("test")
+  call deno#utils#run_in_term(l:cmd)
 endfunction
 
 function! s:DenoFmt() abort
@@ -33,52 +33,9 @@ endfunction
 function! s:DenoDoc() abort
   let l:file = fnamemodify(expand("%"), ":p")
   let l:cmd = printf("%s doc %s", s:deno_executable, l:file)
-  call s:open_new_buffer("doc")
-  call s:run_in_term(l:cmd)
+  call deno#utils#open_new_buffer("doc")
+  call deno#utils#run_in_term(l:cmd)
 endfunction
-
-function! s:open_new_buffer(buffer_name) abort
-  let l:buffer_name = join(["vim-deno", a:buffer_name], "/")
-  let l:buf = bufnr(l:buffer_name, 1)
-  let l:win = bufwinnr(l:buf)
-  if l:win > -1
-    execute l:win . "wincmd w"
-  else
-    silent! execute "split #" . l:buf
-  endif
-  return l:buf
-endfunction
-
-function! s:run_in_term(cmd) abort
-  let l:job_opts = {
-    \   "on_exit": function("s:OnExit"),
-    \ }
-  call termopen(a:cmd, l:job_opts) " TODO add support for the Vim
-endfunction
-
-function! s:OnExit(job_id, code, event) abort
-  " TODO implement this!
-endfunction
-
-function! s:is_test_file(path) abort
-  let l:basename = fnamemodify(a:path, ":t")
-  return l:basename =~# "_test.ts$" ||
-    \ l:basename == "test.ts" ||
-    \ l:basename =~# "_test.tsx$" ||
-    \ l:basename == "test.tsx" ||
-    \ l:basename =~# "_test.js$" ||
-    \ l:basename == "test.js" ||
-    \ l:basename =~# "_test.jsx$" ||
-    \ l:basename == "test.jsx"
-endfunction
-
-function! s:build_test_filename(path) abort
-  let l:ext = fnamemodify(a:path, ":e")
-  let l:without_ext = fnamemodify(a:path, ":r")
-  let l:test_filename = l:without_ext . "_test." . l:ext
-  return filereadable(l:test_filename) ? l:test_filename : a:path
-endfunction
-
 " TODO DenoLint
 command! DenoFmt call s:DenoFmt()
 " TODO Add support for passing flags
