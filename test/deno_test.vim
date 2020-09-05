@@ -12,6 +12,5 @@ function! s:suite.command() abort
   sleep 3
   call s:assert.match(bufname("%"), "sum_test.ts")
   let l:contents = trim(join(getline(1, "$")), "\n")
-  let
   call s:assert.match(l:contents, "test sum() ... ok")
 endfunction
