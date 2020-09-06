@@ -2,7 +2,38 @@
 
 An experimental vim plugin for Deno
 
-## Usage
+## Requirements
+
+- Neovim
+- Deno
+
+## Commands
+
+Format the current buffer using `deno fmt`:
+
+```
+:DenoFmt
+```
+
+Run tests for the current file using `deno test`:
+
+```
+:DenoTest
+```
+
+Lint the current buffer using `deno lint`:
+
+```
+:DenoLint
+```
+
+Show documentation for the current file using `deno doc`:
+
+```
+:DenoDoc
+```
+
+## ALE integration
 
 TODO
 
