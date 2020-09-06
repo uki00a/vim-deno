@@ -2,6 +2,10 @@ function! deno#utils#resolve_filename_of_buffer(buf) abort
   return fnamemodify(expand("#" . a:buf), ":p")
 endfunction
 
+function! deno#utils#get_contents_of_buffer(buf) abort
+  return join(getbufline(a:buf, 1, "$"), "\n")
+endfunction
+
 function! deno#utils#open_new_buffer(buffer_name) abort
   let l:buffer_name = join(["vim-deno", a:buffer_name], "/")
   let l:buf = bufnr(l:buffer_name, 1)
