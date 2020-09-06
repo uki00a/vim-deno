@@ -10,7 +10,7 @@ TODO
 
 - [ ] Add support for Vim
 - [ ] Implement DenoRun command
-- [ ] Implement DenoLint command
+- [x] Implement DenoLint command
 - [ ] Improve DenoTest command
 - [ ] ALE integration?
 - [ ] LSP or tsserver integration?
