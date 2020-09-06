@@ -32,27 +32,7 @@ function! deno#lint_buffer(buf) abort
     \ g:deno_executable,
     \ l:file)
   let l:lint_result = json_decode(system(l:cmd))
-  let l:qflist = s:convert_lint_result_into_qflist(l:lint_result)
+  let l:qflist = deno#lint#convert_lint_result_into_qflist(l:lint_result)
   call setqflist(l:qflist, " ")
   copen
-endfunction
-
-function! s:convert_lint_result_into_qflist(result) abort
-  let l:errors = map(a:result.errors, '{
-    \   "filename": v:val.filename,
-    \   "lnum": v:val.location.line,
-    \   "col": v:val.location.col + 1,
-    \   "text": v:val.message,
-    \   "pattern": v:val.code,
-    \   "type": "E",
-    \ }')
-  let l:diagnostics = map(a:result.diagnostics, '{
-    \   "filename": v:val.filename,
-    \   "lnum": v:val.location.line,
-    \   "col": v:val.location.col + 1,
-    \   "text": v:val.message,
-    \   "pattern": v:val.code,
-    \   "type": "W",
-    \ }')
-  return extend(l:errors, l:diagnostics)
 endfunction
