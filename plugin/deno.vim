@@ -8,11 +8,11 @@ let g:loaded_vim_deno = 1
 let s:cpo_save = &cpo
 set cpo&vim
 
-command! DenoFmt call deno#fmt(join(getline(1, "$"), "\n"))
+command! DenoFmt call deno#fmt_buffer(bufnr())
 " TODO Add support for passing flags
-command! DenoTest call deno#test(fnamemodify(expand("%"), ":p")) 
-command! DenoDoc call deno#doc(fnamemodify(expand("%"), ":p"))
-command! DenoLint call deno#lint(fnamemodify(expand("%"), ":p"))
+command! DenoTest call deno#test_buffer(bufnr()) 
+command! DenoDoc call deno#doc_buffer(bufnr())
+command! DenoLint call deno#lint_buffer(fnamemodify(expand("%"), ":p"))
 
 let &cpo = s:cpo_save
 unlet s:cpo_save
