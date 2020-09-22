@@ -1,0 +1,28 @@
+{
+  "name": "vim-deno",
+  "version": "0.0.1",
+  "description": "An experimental vim plugin for Deno",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "THEMIS_VIM=nvim themis"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uki00a/vim-deno.git"
+  },
+  "keywords": [],
+  "author": "uki00a",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/uki00a/vim-deno/issues"
+  },
+  "homepage": "https://github.com/uki00a/vim-deno#readme",
+  "private": true,
+  "dependencies": {
+    "typescript": "^4.0.2",
+    "typescript-deno-plugin": "^1.31.0"
+  }
+}

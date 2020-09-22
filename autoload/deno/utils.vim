@@ -1,3 +1,9 @@
+let s:root_dir = fnamemodify(expand("<sfile>:p"), ":p:h:h:h")
+
+function! deno#utils#resolve_from_root_dir(path) abort
+  return s:root_dir . a:path
+endfunction
+
 function! deno#utils#resolve_filename_of_buffer(buf) abort
   return fnamemodify(expand("#" . a:buf), ":p")
 endfunction
