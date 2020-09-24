@@ -1,5 +1,5 @@
 function! s:Executable(buffer) abort
-  return get(g:, "deno_executable", "deno")
+  return deno#config#Executable()
 endfunction
 
 function! s:Command(buffer) abort
