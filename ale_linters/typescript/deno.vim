@@ -12,14 +12,14 @@ function! s:Callback(buffer, lines) abort
   endif
 
   let l:result = json_decode(join(a:lines, "\n"))
-  let l:qflist = deno#lint#convert_lint_result_into_qflist(l:result)
-  call s:fix_qflist(a:buffer, l:qflist)
+  let l:qflist = deno#lint#ConvertLintResultIntoQflist(l:result)
+  call s:FixQflist(a:buffer, l:qflist)
   return l:qflist
 endfunction
 
-function! s:fix_qflist(buffer, qflist) abort
+function! s:FixQflist(buffer, qflist) abort
   for l:item in a:qflist
-    let l:item.filename = deno#utils#resolve_filename_of_buffer(a:buffer)
+    let l:item.filename = deno#utils#ResolveFilenameOfBuffer(a:buffer)
   endfor
 endfunction
 

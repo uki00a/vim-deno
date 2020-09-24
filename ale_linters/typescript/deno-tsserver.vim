@@ -27,15 +27,15 @@ function! s:Executable(buffer) abort
   "\   deno#utils#resolve_from_root_dir("node_modules/.bin/tsserver"),
   "\   "node_modules/.bin/tsserver",
   "\ ])
-  let l:executable = deno#utils#resolve_from_root_dir("/node_modules/.bin/tsserver")
+  let l:executable = deno#utils#ResolveFromRootDir("/node_modules/.bin/tsserver")
   return l:executable
 endfunction
 
 function! s:Command(buffer) abort
   let l:args = printf(
     \   "--globalPlugins typescript-deno-plugin --pluginProbeLocations %s --tsserver-log-file %s",
-    \ deno#utils#resolve_from_root_dir("/node_modules"),
-    \ deno#utils#resolve_from_root_dir("/debug.log"))  
+    \ deno#utils#ResolveFromRootDir("/node_modules"),
+    \ deno#utils#ResolveFromRootDir("/debug.log"))  
   return "%e " . l:args 
 endfunction
 

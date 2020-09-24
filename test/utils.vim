@@ -1,7 +1,7 @@
 let s:suite = themis#suite("utils")
 let s:assert = themis#helper("assert")
 
-function! s:suite.is_test_file() abort
+function! s:suite.IsTestFile() abort
   for l:t in [
   \   ["test.ts", v:true],
   \   ["test.js", v:true],
@@ -19,7 +19,7 @@ function! s:suite.is_test_file() abort
   \   ["path/to/sum.ts", v:false],
   \ ]
     let [l:given, l:expected] = l:t
-    let l:actual = deno#utils#is_test_file(l:given)
+    let l:actual = deno#utils#IsTestFile(l:given)
     call s:assert.equals(
       \ l:actual,
       \ l:expected,

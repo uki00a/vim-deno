@@ -10,11 +10,11 @@ set cpo&vim
 
 let g:deno_executable = get(g:, "deno_executable", "deno")
 
-command! DenoFmt call deno#fmt_buffer(bufnr())
+command! DenoFmt call deno#FmtBuffer(bufnr())
 " TODO Add support for passing flags
-command! DenoTest call deno#test_buffer(bufnr()) 
-command! DenoDoc call deno#doc_buffer(bufnr())
-command! DenoLint call deno#lint_buffer(bufnr())
+command! DenoTest call deno#TestBuffer(bufnr()) 
+command! DenoDoc call deno#DocBuffer(bufnr())
+command! DenoLint call deno#LintBuffer(bufnr())
 
 let &cpo = s:cpo_save
 unlet s:cpo_save

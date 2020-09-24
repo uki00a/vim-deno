@@ -1,18 +1,18 @@
 let s:root_dir = fnamemodify(expand("<sfile>:p"), ":p:h:h:h")
 
-function! deno#utils#resolve_from_root_dir(path) abort
+function! deno#utils#ResolveFromRootDir(path) abort
   return s:root_dir . a:path
 endfunction
 
-function! deno#utils#resolve_filename_of_buffer(buf) abort
+function! deno#utils#ResolveFilenameOfBuffer(buf) abort
   return fnamemodify(expand("#" . a:buf), ":p")
 endfunction
 
-function! deno#utils#get_contents_of_buffer(buf) abort
+function! deno#utils#GetContentsOfBuffer(buf) abort
   return join(getbufline(a:buf, 1, "$"), "\n")
 endfunction
 
-function! deno#utils#open_new_buffer(buffer_name) abort
+function! deno#utils#OpenNewBuffer(buffer_name) abort
   let l:buffer_name = join(["vim-deno", a:buffer_name], "/")
   let l:buf = bufnr(l:buffer_name, 1)
   let l:win = bufwinnr(l:buf)
@@ -24,7 +24,7 @@ function! deno#utils#open_new_buffer(buffer_name) abort
   return l:buf
 endfunction
 
-function! deno#utils#run_in_term(cmd) abort
+function! deno#utils#RunInTerm(cmd) abort
   let l:job_opts = {
     \   "on_exit": function("s:OnExit"),
     \ }
@@ -35,7 +35,7 @@ function! s:OnExit(job_id, code, event) abort
   " TODO implement this!
 endfunction
 
-function! deno#utils#is_test_file(path) abort
+function! deno#utils#IsTestFile(path) abort
   let l:basename = fnamemodify(a:path, ":t")
   return l:basename =~# "_test.ts$" ||
     \ l:basename == "test.ts" ||
@@ -47,7 +47,7 @@ function! deno#utils#is_test_file(path) abort
     \ l:basename == "test.jsx"
 endfunction
 
-function! deno#utils#build_test_filename(path) abort
+function! deno#utils#BuildTestFilename(path) abort
   let l:ext = fnamemodify(a:path, ":e")
   let l:without_ext = fnamemodify(a:path, ":r")
   let l:test_filename = l:without_ext . "_test." . l:ext

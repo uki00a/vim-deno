@@ -1,4 +1,4 @@
-function! deno#lint#convert_lint_result_into_qflist(result) abort
+function! deno#lint#ConvertLintResultIntoQflist(result) abort
   let l:errors = map(a:result.errors, '{
     \   "filename": v:val.filename,
     \   "lnum": v:val.range.start.line,
