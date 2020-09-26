@@ -18,7 +18,7 @@ endfunction
 
 function! deno#FmtBuffer(buf) abort
   let l:contents = deno#utils#GetContentsOfBuffer(a:buf)
-  let l:cmd = printf("%s fmt -", deno#config#Executable())
+  let l:cmd = deno#fmt#Command(["-"])
   let l:output = system(l:cmd, l:contents)
   " Cleanup the current buffer
   :%delete
