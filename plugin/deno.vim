@@ -12,7 +12,7 @@ if exists("*ale#fix#registry#Add")
   deno#ale#AddFixer()
 endif
 
-command! DenoFmt call deno#FmtBuffer(bufnr())
+command! DenoFmt call deno#fmt#FormatBuffer(bufnr())
 " TODO Add support for passing flags
 command! DenoTest call deno#TestBuffer(bufnr()) 
 command! DenoDoc call deno#DocBuffer(bufnr())

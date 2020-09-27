@@ -16,15 +16,6 @@ function! deno#DocBuffer(buf) abort
   call deno#utils#RunInTerm(l:cmd)
 endfunction
 
-function! deno#FmtBuffer(buf) abort
-  let l:contents = deno#utils#GetContentsOfBuffer(a:buf)
-  let l:cmd = deno#fmt#Command(["-"])
-  let l:output = system(l:cmd, l:contents)
-  " Cleanup the current buffer
-  :%delete
-  call setline(1, split(l:output, "\n"))
-endfunction
-
 function! deno#LintBuffer(buf) abort
   let l:cmd = printf(
     \ "%s lint --unstable --json -",
