@@ -22,21 +22,12 @@
 " (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 " SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-function! s:Executable(buffer) abort
-  "let l:executable = ale#node#FindExecutable(a:buffer, "typescript_tsserver", [
-  "\   deno#utils#resolve_from_root_dir("node_modules/.bin/tsserver"),
-  "\   "node_modules/.bin/tsserver",
-  "\ ])
-  let l:executable = deno#utils#ResolveFromRootDir("/node_modules/.bin/tsserver")
-  return l:executable
+function! s:Executable(_buffer) abort
+  return deno#tsserver#Executable()
 endfunction
 
-function! s:Command(buffer) abort
-  let l:args = printf(
-    \   "--globalPlugins typescript-deno-plugin --pluginProbeLocations %s --tsserver-log-file %s",
-    \ deno#utils#ResolveFromRootDir("/node_modules"),
-    \ deno#utils#ResolveFromRootDir("/debug.log"))  
-  return "%e " . l:args 
+function! s:Command(_buffer) abort
+  return "%e " . deno#tsserver#Args()
 endfunction
 
 call ale#linter#Define("typescript", {
