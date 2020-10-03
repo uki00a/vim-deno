@@ -15,14 +15,3 @@ function! deno#DocBuffer(buf) abort
   call deno#utils#OpenNewBuffer("doc")
   call deno#utils#RunInTerm(l:cmd)
 endfunction
-
-function! deno#LintBuffer(buf) abort
-  let l:cmd = printf(
-    \ "%s lint --unstable --json -",
-    \ deno#config#Executable())
-  let l:contents = deno#utils#GetContentsOfBuffer(a:buf)
-  let l:lint_result = json_decode(system(l:cmd, l:contents))
-  let l:qflist = deno#lint#ConvertLintResultIntoQflist(l:lint_result)
-  call setqflist(l:qflist, " ")
-  copen
-endfunction

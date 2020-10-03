@@ -16,7 +16,7 @@ command! DenoFmt call deno#fmt#FormatBuffer(bufnr())
 " TODO Add support for passing flags
 command! DenoTest call deno#TestBuffer(bufnr()) 
 command! DenoDoc call deno#DocBuffer(bufnr())
-command! DenoLint call deno#LintBuffer(bufnr())
+command! DenoLint call deno#lint#LintBuffer(bufnr())
 
 let &cpo = s:cpo_save
 unlet s:cpo_save

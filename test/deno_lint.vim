@@ -9,6 +9,8 @@ endfunction
 function! s:suite.command() abort
   call OpenTestdataFile("lint.ts")
   DenoLint
+  " FIXME wait until "deno lint" is done...
+  sleep 3
   let l:qflist = getqflist()
   call s:assert.not_empty(l:qflist)
 
