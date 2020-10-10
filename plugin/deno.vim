@@ -14,6 +14,7 @@ endif
 
 command! DenoFmt call deno#fmt#FormatBuffer(bufnr())
 " TODO Add support for passing flags
+command! DenoRun call deno#run#RunBuffer(bufnr())
 command! DenoTest call deno#test#TestBuffer(bufnr())
 command! DenoDoc call deno#doc#ShowDocForBuffer(bufnr())
 command! DenoLint call deno#lint#LintBuffer(bufnr())

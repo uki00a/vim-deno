@@ -25,6 +25,12 @@ build = 'npm install' # If you want to use tsserver integration via ALE
 
 ## Commands
 
+Run the current buffer using `deno run`:
+
+```
+:DenoRun
+```
+
 Format the current buffer using `deno fmt`:
 
 ```
@@ -75,7 +81,7 @@ let g:ale_linters['typescript'] = ['deno', 'deno-tsserver']
 ## TODO
 
 - [ ] Add support for Vim
-- [ ] Implement DenoRun command
+- [x] Implement DenoRun command
 - [x] Implement DenoLint command
 - [ ] Improve DenoTest command
 - [x] ALE integration
