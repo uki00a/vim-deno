@@ -26,7 +26,7 @@ jobs:
       - name: Setup Deno
         uses: denolib/setup-deno@master
         with:
-          deno-version: 1.4.6
+          deno-version: 1.5.1
       - name: Run tests
         env:
           THEMIS_VIM: ${{ steps.vim.outputs.executable }}
